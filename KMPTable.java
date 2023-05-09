@@ -74,14 +74,21 @@ public class KMPTable {
                     ArrayList<String> prefixes = getPrefixes(pattern.substring(0, i + 1));
 
                     // Eg. xyxyx when xyxyz
-                    ArrayList<String> suffixes = getSuffixes(pattern.substring(0, i + 1) + uniqueChars.get(j));
+                    ArrayList<String> suffixes = getSuffixes(pattern.substring(0, i) + uniqueChars.get(j));
 
                     int skipVal = i + 1;
 
-                    for (String p : prefixes) {
+                    for (int k = 0; k < prefixes.size(); k++) {
+                        String p = prefixes.get(k);
                         if (suffixes.contains(p)) {
                             // If the longest proper prefix is also a suffix, calculate the skip value
-                            skipVal = Math.abs(p.length() - i);
+                            skipVal = (i + 1) - p.length();
+                            // System.out.println(p);
+                            // System.out.println("Longest prefix length: " + p.length() + " Current i: " +
+                            // i
+                            // + " skipValue: " + skipVal);
+                            break;
+
                         }
                     }
 
@@ -108,7 +115,7 @@ public class KMPTable {
 
     public static ArrayList<String> getSuffixes(String s) {
         ArrayList<String> suffixes = new ArrayList<String>();
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             suffixes.add(s.substring(i, s.length()));
         }
 
