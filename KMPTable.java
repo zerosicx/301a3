@@ -26,7 +26,7 @@ public class KMPTable {
         // System.out.println(s);
         // }
 
-        System.out.println("Calculating the skip table: ");
+        // System.out.println("Calculating the skip table: ");
         int[][] skipTable = createSkipTable();
 
         // Print the skip table
