@@ -18,7 +18,8 @@ public class KMPSearch {
         // process searh file and get location of match
         int[] results = searchPatternInFile(new File(args[1]));
         if (results.length==2){
-            System.out.println("Match found at line index " + results[0] + " and character index " + results[1]);
+            System.out.println("Match found at [line index] [character index]: ");
+            System.out.println(results[0] + " " + results[1]);
         } else {
             System.out.println("No matches found for pattern");
         }
@@ -56,7 +57,7 @@ public class KMPSearch {
 
                     if(match.equals(pattern.get(matchIndex))){ // check if current character matches pattern
                         if(matchIndex == pattern.size()-1){ // pattern is found
-                            return new int[]{lineIndex, (i-matchIndex)};
+                            return new int[]{lineIndex+1, (i-matchIndex+1)};
                         }else {
                             matchIndex++; // not full pattern, match next character
                         }
