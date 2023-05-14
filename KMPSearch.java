@@ -96,8 +96,7 @@ public class KMPSearch {
                 line = line.trim().replaceAll(" ", ""); // clean up lines
 
                 if (index == 0) { // get pattern
-                    String s = line.trim();// removes pading
-                    char[] sArr = s.toCharArray();
+                    char[] sArr = line.toCharArray();
                     for (int i = 0; i < sArr.length; i++) {
                         pattern.add(sArr[i]);
                     }

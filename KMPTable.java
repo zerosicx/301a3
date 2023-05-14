@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Collectors;
@@ -31,6 +33,13 @@ public class KMPTable {
 
         // Print the skip table
         printTable(skipTable);
+
+        try {
+            printTableToFile(skipTable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -151,7 +160,42 @@ public class KMPTable {
             }
             System.out.println();
         }
-
     }
 
+    public static void printTableToFile(int[][] skipTable) throws Exception {
+        // Create a new file
+        PrintWriter pw = new PrintWriter(new File("table.kmp"));
+
+        // The first line is the characters in the pattern space separated
+        pw.print("  "); // Making space for padding
+        for (Character c : pattern.toCharArray()) {
+            pw.write(c + " ");
+        }
+        pw.println("");
+
+        // Get unique characters to print out per line
+        ArrayList<Character> uniqueChars = new ArrayList<Character>();
+        for (Character c : pattern.toCharArray()) {
+            if (!uniqueChars.contains(c)) {
+                uniqueChars.add(c);
+            }
+        }
+
+        // represent all other types of characters
+        uniqueChars.add('*');
+
+        for (int r = 0; r < skipTable.length; r++) { // should be 3
+            // Print the unique character
+            pw.print(uniqueChars.get(r) + " ");
+
+            for (int c = 0; c < skipTable[r].length; c++) {
+                // Print skip value
+                pw.print(skipTable[r][c] + " ");
+            }
+            pw.println();
+        }
+
+        pw.close();
+
+    }
 }
