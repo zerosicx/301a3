@@ -21,11 +21,11 @@ public class KMPSearch {
     }
 
     /**
-     * Searches for the pattern in the given file
+     * Searches for the pattern in the given file and prints the first occurence of
+     * the pattern per line in the structure:
+     * [line index] [character index]
      * 
      * @param file the file to be searched
-     * @return the location of the first occurence of the pattern [line index,
-     *         character index]
      */
     public static void searchPatternInFile(File file) {
         try {
@@ -48,14 +48,12 @@ public class KMPSearch {
                         match = '*';
                     }
 
-                    // System.out.println("match char: " + match);
-                    // System.out.println("pattern char: " + (pattern.get(matchIndex)));
-
                     if (match.equals(pattern.get(matchIndex))) { // check if current character matches pattern
+
                         if (matchIndex == pattern.size() - 1) { // pattern is found
                             System.out.println((lineIndex + 1) + " " + (i - matchIndex + 1));
-                        } else {
-                            matchIndex++; // not full pattern, match next character
+                        } else { // not full pattern, match next character
+                            matchIndex++; 
                         }
 
                     } else {
@@ -89,25 +87,24 @@ public class KMPSearch {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
-
             int index = 0;
 
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) { //read line by line
                 line = line.trim().replaceAll(" ", ""); // clean up lines
 
-                if (index == 0) { // get pattern
+                if (index == 0) { // get pattern and save to pattern array
                     char[] sArr = line.toCharArray();
                     for (int i = 0; i < sArr.length; i++) {
                         pattern.add(sArr[i]);
                     }
 
                 } else { // get unique characters and skip values
-                    uniqueChars.add(line.charAt(0));
+                    uniqueChars.add(line.charAt(0)); // get unique character
 
                     ArrayList<Integer> row = new ArrayList<>();
                     char[] arr = line.toCharArray();
 
-                    for (int i = 1; i < arr.length; i++) {
+                    for (int i = 1; i < arr.length; i++) { //build skip rows for table
                         int skip = Integer.parseInt("" + arr[i]);
                         row.add(skip);
                     }
@@ -116,10 +113,7 @@ public class KMPSearch {
                 }
                 index++;
             }
-            reader.close();
-            // System.out.println("PATTERN: (" + pattern + ")");
-            // System.out.println("uChars: (" + uniqueChars + ")");
-            // System.out.println("Table: " + skipTable);
+            reader.close(); // close reader
 
         } catch (Exception e) { // catch errors
             System.err.println(e.getMessage());
