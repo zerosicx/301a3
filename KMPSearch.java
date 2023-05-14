@@ -12,7 +12,7 @@ public class KMPSearch {
             System.err.println("Usage: KMP search <KMPTable file> <file to be searched>");
         }
 
-        //read and process the table file
+        // read and process the table file
         createTableArray(new File(args[0]));
 
         // process searh file and get location of match
@@ -29,7 +29,7 @@ public class KMPSearch {
     /**
      * Searches for the pattern in the given file
      * @param file  the file to be searched
-     * @return [line index, character index]
+     * @return the location of the first occurence of the pattern [line index, character index]
      */
     public static int[] searchPatternInFile(File file){
         try{
