@@ -7,5 +7,6 @@ Changelog:
 - 14/5: Minor bug fixes to make table work correctly
 
 Usage:
-`java KMPTable <pattern> > table.kmp`
+`java KMPTable <pattern>`
+- It should create the table itself called table.kmp
 `java KMPSearch table.kmp input.txt`
