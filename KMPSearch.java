@@ -17,13 +17,7 @@ public class KMPSearch {
         createTableArray(new File(args[0]));
 
         // process searh file and get location of match
-        int[] results = searchPatternInFile(new File(args[1]));
-        if (results.length == 2) {
-            System.out.println("Match found at [line index] [character index]: ");
-            System.out.println(results[0] + " " + results[1]);
-        } else {
-            System.out.println("No matches found for pattern");
-        }
+        searchPatternInFile(new File(args[1]));
     }
 
     /**
@@ -33,7 +27,7 @@ public class KMPSearch {
      * @return the location of the first occurence of the pattern [line index,
      *         character index]
      */
-    public static int[] searchPatternInFile(File file) {
+    public static void searchPatternInFile(File file) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -59,7 +53,7 @@ public class KMPSearch {
 
                     if (match.equals(pattern.get(matchIndex))) { // check if current character matches pattern
                         if (matchIndex == pattern.size() - 1) { // pattern is found
-                            return new int[] { lineIndex + 1, (i - matchIndex + 1) };
+                            System.out.println((lineIndex + 1) + " " + (i - matchIndex + 1));
                         } else {
                             matchIndex++; // not full pattern, match next character
                         }
@@ -83,9 +77,6 @@ public class KMPSearch {
             System.err.println("ERROR: " + e.getMessage());
             e.printStackTrace();
         }
-
-        // no patterns found
-        return null;
     }
 
     /**
